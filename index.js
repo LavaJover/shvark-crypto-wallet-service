@@ -237,10 +237,10 @@ AppDataSource.initialize().then(() => {
   
       return res.json({ txid });
     } catch (err) {
-      console.error("❌ Withdraw error:", err.message);
+      console.error("Withdraw error:", err.message);
       return res.status(500).json({ error: "Withdraw failed", details: err.message });
     }
   });  
 
-  app.listen(3000, () => console.log("🚀 Wallet service running on port 3000"));
+  app.listen(3000, () => console.log("Wallet service running on port 3000"));
 });
