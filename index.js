@@ -240,7 +240,35 @@ AppDataSource.initialize().then(() => {
       console.error("Withdraw error:", err.message);
       return res.status(500).json({ error: "Withdraw failed", details: err.message });
     }
+  });
+
+  app.get("/wallets/:traderId/history", async (req, res) => {
+    const { traderId } = req.params;
+  
+    const transactions = await txRepo.find({
+      where: { traderId },
+      order: { id: "DESC" }, // последние сверху
+    });
+  
+    res.json({ history: transactions });
+  });
+
+  app.get("/wallets/:traderId/balance", async (req, res) => {
+    const { traderId } = req.params;
+  
+    const wallet = await walletRepo.findOneBy({ traderId, currency: "BTC" });
+  
+    if (!wallet) return res.status(404).json({ error: "Wallet not found" });
+  
+    res.json({
+      traderId: wallet.traderId,
+      currency: wallet.currency,
+      balance: wallet.balance,
+      frozen: wallet.frozen,
+      address: wallet.address,
+    });
   });  
+  
 
   app.listen(3000, () => console.log("Wallet service running on port 3000"));
 });
