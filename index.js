@@ -32,7 +32,7 @@ const AppDataSource = new DataSource({
 });
 
 AppDataSource.initialize().then(() => {
-  console.log("✅ DB connected");
+  console.log("DB connected");
 
   const walletRepo = AppDataSource.getRepository("Wallet");
   const indexRepo = AppDataSource.getRepository("TraderWalletIndex");
@@ -284,4 +284,5 @@ AppDataSource.initialize().then(() => {
 
 
   app.listen(3000, () => console.log("Wallet service running on port 3000"));
+
 });
