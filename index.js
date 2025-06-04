@@ -267,8 +267,21 @@ AppDataSource.initialize().then(() => {
       frozen: wallet.frozen,
       address: wallet.address,
     });
-  });  
-  
+  });
+
+
+  app.get("/wallets/:traderId/address", async (req, res) => {
+  const { traderId } = req.params;
+
+  const wallet = await walletRepo.findOneBy({ traderId, currency: "BTC" });
+
+  if (!wallet) {
+    return res.status(404).json({ error: "Wallet not found" });
+  }
+
+  res.json({ address: wallet.address });
+});
+
 
   app.listen(3000, () => console.log("Wallet service running on port 3000"));
 });
