@@ -25,6 +25,14 @@ module.exports = new EntitySchema({
     frozen: {
       type: "float",
       default: 0
+    },
+    created_at: {
+      type: "timestamp",
+      createDate: true
+    },
+    updated_at: {
+      type: "timestamp",
+      updateDate: true 
     }
   }
 });
